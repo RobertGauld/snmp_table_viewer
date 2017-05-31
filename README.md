@@ -1,4 +1,4 @@
-[![Gem Version](https://badge.fury.io/rb/snmp-table-viewer.png)](http://badge.fury.io/rb/snmp-table-viewer)
+[![Gem Version](https://badge.fury.io/rb/snmp-table-viewer.svg)](http://badge.fury.io/rb/snmp-table-viewer)
 [![Dependency Status](https://gemnasium.com/robertgauld/snmp-table-viewer.png)](https://gemnasium.com/robertgauld/snmp-table-viewer)
 
 Master branch:
