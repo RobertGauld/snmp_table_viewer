@@ -1,0 +1,152 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require_relative File.join('..', 'lib', 'snmp_table_viewer')
+
+def parse_command_line
+  options = {
+    SNMPTableViewer::Formatter::Table => {
+      transpose: false,
+    },
+    snmp: {
+      common: {
+        version: 'v3',
+        host: 'localhost',
+        port: 161,
+      },
+      'v1' => {
+        community: 'public',
+      },
+      'v2' => {
+        community: 'public',
+      },
+      'v3' => {
+        auth_protocol: :md5,
+        priv_protocol: :des,
+      },
+    },
+    base_oid: '',
+    headings:  [],
+    formatter: SNMPTableViewer::Formatter::Table,
+  }
+  headings_for = {
+      'ifTable' => ['Index', 'Descr', 'Type', 'Mtu', 'Speed', 'PhysAddress', 'AdminStatus', 'OperStatus', 'LastChange', 'InOctets', 'InUcastPkts', 'InNUcastkts', 'InDiscards', 'InErrors', 'InUnknownPrortos', 'OutOctets', 'OutUcastPkts', 'OutNUcastPkts', 'OutDiscards', 'OutErrors', 'OutQLen', 'Specific'],
+  }
+  formatters = {
+      'table' => SNMPTableViewer::Formatter::Table,
+      'csv' =>   SNMPTableViewer::Formatter::CSV,
+      'json' =>  SNMPTableViewer::Formatter::JSON,
+      'raw' =>   SNMPTableViewer::Formatter::Raw,
+  }
+  converters = {
+    'iftable' => SNMPTableViewer::Converter::IfTable,
+  }
+  base_oids = {
+    'iftable' => '1.3.6.1.2.1.2.2',
+  }
+  snmp_version = 'v3'
+
+  parser = OptionParser.new do |opts|
+    opts.banner = "Usage: snmp-table-viewer [options]"
+
+    opts.on('-h', '--help', '-?', 'Prints this help.') do
+      puts opts
+      exit
+    end
+
+    opts.on('--headings HEADINGS', Array, 'Headings to use in the table (e.g. "A, Bc, D").') do |v|
+      options[:headings] += v.map(&:strip)
+    end
+
+    opts.on('--headings-for TYPE', String, "Use headings for this table type (#{headings_for.keys.join('|')}).") do |v|
+      options[:headings] += headings_for[v] || []
+    end
+
+    opts.on('--format FORMAT', String, "How to format the output (#{formatters.keys.join('|')}) (default table).") do |v|
+      options[:formatter] = formatters[v.downcase]
+    end
+
+    opts.on('--converter CONVERTER', String, "A converter to run on the data before formatting (#{converters.keys.join('|')}).") do |v|
+      options[:converter] = converters[v.downcase]
+    end
+
+
+    opts.separator "\nSNMP common options:"
+
+    opts.on('-vVERSION', '--version VERSION', 'SNMP version to use (1|2|3|) (default 3).') do |version|
+      snmp_version = "v#{version}"
+      options[:snmp][:common][:version] = snmp_version
+    end
+
+    opts.on('--host HOST', 'The host to connect to.') do |v|
+      options[:snmp][:common][:host] = v
+    end
+
+    opts.on('p PORT', '--port PORT', Integer, 'SNMP port to connect to (default 161).') do |v|
+      options[:snmp][:common][:port] = v
+    end
+
+    opts.on('--base-oid OID', 'The oid at the start of the table. Can by dotted numbers or ifTable') do |v|
+      options[:base_oid] = base_oids[v.downcase] || v
+    end
+
+
+
+    opts.separator "\nSNMP version 1 and 2 options:"
+
+    opts.on('-c COMMUNITY', '--comunity COMMUNITY', 'SNMP comunity (default "public").') do |community|
+      options[:snmp][snmp_version][:community] = community
+    end
+
+
+    opts.separator "\nSNMP version 3 options:"
+
+    opts.on('-u USER', '--user USER', '--username USER', 'SNMP user.') do |user|
+      options[:snmp]['v3'][:username] = user
+    end
+# TODO - Add other levels, then update readme
+    opts.on('l LEVEL', '--security-level LEVEL', 'Security level to use (??|auth_priv).') do |level|
+      options[:snmp]['v3'][:security_level] = level
+    end
+    opts.on('-a AUTH_PROTOCOL', '--auth-protocol AUTH_PROTOCOL', 'Authentication protocol to use (MD5|SHA) (default MD5).') do |value|
+      options[:snmp]['v3'][:auth_protocol] = value.downcase.to_sym
+    end
+    opts.on('-A AUTH_PASSWORD', '--auth-password AUTH_PASSWORD', 'Authentication password to use.', String) do |value|
+      options[:snmp]['v3'][:auth_password] = value
+    end
+    opts.on('-x PRIV_PROTOCOL', '--priv-protocol PRIV_PROTOCOL', 'Privacy protocol to use (DES|AES) (default DES).') do |value|
+      options[:snmp]['v3'][:priv_protocol] = value.downcase.to_sym
+    end
+    opts.on('-X PRIV_PASSWORD', '--priv-password PRIV_PASSWORD', 'Privacy password to use.', String) do |value|
+      options[:snmp]['v3'][:priv_password] = value
+    end
+
+
+    opts.separator "\nTable formatter options:"
+    opts.on('--[no-]transpose-table', 'Transpose the output table (swap rows and columns).') do |v|
+      options[SNMPTableViewer::Formatter::Table][:transpose] = v
+    end
+
+  end # create parser
+  
+  parser.parse!(ARGV)
+  options
+end
+
+
+
+
+options = parse_command_line
+snmp_options = options[:snmp][:common].clone
+snmp_options.merge!(options[:snmp][snmp_options[:version]])
+
+fetcher = SNMPTableViewer::Fetcher.new(snmp_options)
+data = fetcher.fetch(options[:base_oid])
+
+converter = options[:converter]
+data = converter.convert(data) unless converter.nil?
+
+formatter = options[:formatter]
+formatter_options = options[formatter] || {}
+formatter = formatter.new(data: data, headings: options[:headings])
+puts formatter.output(**formatter_options)

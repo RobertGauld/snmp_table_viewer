@@ -1,0 +1,15 @@
+language: ruby
+rvm:
+  - 2.3.0
+  - 2.3.1
+  - 2.4.0
+gemfile:
+  - Gemfile
+branches:
+  only:
+    - master
+    - staging
+    - /gh(?:\d)+(?:-.+)?/
+    - /dev_ver_\d+\.\d+/
+before_install: gem update bundler
+script: rake ci:travis
