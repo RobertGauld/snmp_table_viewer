@@ -9,7 +9,7 @@ Master branch:
 Staging branch:
 [![Build Status](https://secure.travis-ci.org/robertgauld/snmp-table-viewer.png?branch=staging)](http://travis-ci.org/robertgauld/snmp-table-viewer)
 [![Coveralls Status](https://coveralls.io/repos/robertgauld/snmp-table-viewer/badge.svg?branch=master)](https://coveralls.io/r/robertgauld/snmp-table-viewer)
-[![Code Climate](https://codeclimate.com/github/robertgauld/osnmp-table-viewer.png?branch=staging)](https://codeclimate.com/github/robertgauld/snmp-table-viewer)
+[![Code Climate](https://codeclimate.com/github/robertgauld/snmp-table-viewer.png?branch=staging)](https://codeclimate.com/github/robertgauld/snmp-table-viewer)
 
 
 ## Build State
