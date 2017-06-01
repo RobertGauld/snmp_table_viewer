@@ -3,13 +3,13 @@
 
 Master branch:
 [![Build Status](https://secure.travis-ci.org/robertgauld/snmp-table-viewer.png?branch=master)](http://travis-ci.org/robertgauld/snmp-table-viewer)
-[![Coveralls Status](https://coveralls.io/repos/robertgauld/snmp-table-viewer/badge.png?branch=master)](https://coveralls.io/r/robertgauld/snmp-table-viewer)
+[![Coveralls Status](https://coveralls.io/repos/robertgauld/snmp-table-viewer/badge.svg?branch=master)](https://coveralls.io/r/robertgauld/snmp-table-viewer)
 [![Code Climate](https://codeclimate.com/github/robertgauld/snmp-table-viewer.png?branch=master)](https://codeclimate.com/github/robertgauld/snmp-table-viewer)
 
 Staging branch:
 [![Build Status](https://secure.travis-ci.org/robertgauld/snmp-table-viewer.png?branch=staging)](http://travis-ci.org/robertgauld/snmp-table-viewer)
-[![Coveralls Status](https://coveralls.io/repos/robertgauld/snmp-table-viewer/badge.png?branch=master)](https://coveralls.io/r/robertgauld/snmp-table-viewer)
-[![Code Climate](https://codeclimate.com/github/robertgauld/osnmp-table-viewer.png?branch=staging)](https://codeclimate.com/github/robertgauld/snmp-table-viewer)
+[![Coveralls Status](https://coveralls.io/repos/robertgauld/snmp-table-viewer/badge.svg?branch=master)](https://coveralls.io/r/robertgauld/snmp-table-viewer)
+[![Code Climate](https://codeclimate.com/github/robertgauld/snmp-table-viewer.png?branch=staging)](https://codeclimate.com/github/robertgauld/snmp-table-viewer)
 
 
 ## Build State
@@ -62,8 +62,7 @@ SNMP version 1 and 2 options:
 
 SNMP version 3 options:
     -u, --user, --username USER      SNMP user.
-        --security-level LEVEL       l LEVEL
-                                     Security level to use (??|auth_priv).
+    -l, --security-level LEVEL       Security level to use (no_auth|auth_no_priv|auth_priv).
     -a AUTH_PROTOCOL,                Authentication protocol to use (MD5|SHA) (default MD5).
         --auth-protocol
     -A AUTH_PASSWORD,                Authentication password to use.

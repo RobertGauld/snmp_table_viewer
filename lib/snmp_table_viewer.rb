@@ -8,7 +8,7 @@ require 'json'
 
 # Load the other files in the lib directory
 require_relative '../version'
-Dir["#{File.dirname(__FILE__)}/**/*.rb"].select{ |f| f != __FILE__}.each { |f| load(f) }
+Dir["#{File.dirname(__FILE__)}/**/*.rb"].select{ |f| f != __FILE__}.sort.each { |f| load(f) }
 
 module SNMPTableViewer
 end # module SNMPTableViewer
