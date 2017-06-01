@@ -1,5 +1,3 @@
-require_relative '../converter' # TODO work out why this line is needed when that file has already been 
-
 module SNMPTableViewer
 
   class Converter::IfTable < Converter
