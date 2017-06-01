@@ -62,8 +62,7 @@ SNMP version 1 and 2 options:
 
 SNMP version 3 options:
     -u, --user, --username USER      SNMP user.
-        --security-level LEVEL       l LEVEL
-                                     Security level to use (??|auth_priv).
+    -l, --security-level LEVEL       Security level to use (no_auth|auth_no_priv|auth_priv).
     -a AUTH_PROTOCOL,                Authentication protocol to use (MD5|SHA) (default MD5).
         --auth-protocol
     -A AUTH_PASSWORD,                Authentication password to use.

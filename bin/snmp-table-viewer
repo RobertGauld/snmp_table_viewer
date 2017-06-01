@@ -104,8 +104,7 @@ def parse_command_line
     opts.on('-u USER', '--user USER', '--username USER', 'SNMP user.') do |user|
       options[:snmp]['v3'][:username] = user
     end
-# TODO - Add other levels, then update readme
-    opts.on('l LEVEL', '--security-level LEVEL', 'Security level to use (??|auth_priv).') do |level|
+    opts.on('-l LEVEL', '--security-level LEVEL', 'Security level to use (no_auth|auth_no_priv|auth_priv).') do |level|
       options[:snmp]['v3'][:security_level] = level
     end
     opts.on('-a AUTH_PROTOCOL', '--auth-protocol AUTH_PROTOCOL', 'Authentication protocol to use (MD5|SHA) (default MD5).') do |value|
