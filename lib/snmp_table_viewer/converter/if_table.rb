@@ -1,5 +1,10 @@
 module SNMPTableViewer
 
+  # Converter for the interface table.
+  #   Replaces type with "number (meaning)"
+  #   Replaces admin state with "number (meaning)"
+  #   Replaces oper state with "number (meaning)"
+  #   Replaces last change with "Timeticks: (number) D days, H:M:S.ms"
   class Converter::IfTable < Converter
     def self.convert(data)
       admin_states = ['up', 'down', 'testing']

@@ -1,7 +1,11 @@
 module SNMPTableViewer
 
+  # Formatting class for Table output.
   class Formatter::Table < Formatter
-    def output(transpose: false, **table_options)
+    # Output the data (and headings if provided) as a table which can be displayed in the terminal.
+    # @param transpose [Boolean] Whether to swap rows and columns - useful for displaying a wide and short table
+    # @return [String] the text to display in order to draw the table
+    def output(transpose: false)
       use_headings = @headings.size > 0
       data = @data
 
@@ -16,9 +20,9 @@ module SNMPTableViewer
       end
 
       if use_headings
-        Terminal::Table.new(rows: data, headings: @headings, **table_options).to_s
+        Terminal::Table.new(rows: data, headings: @headings).to_s
       else
-        Terminal::Table.new(rows: data, **table_options).to_s
+        Terminal::Table.new(rows: data).to_s
       end
     end
   end # Table Formatter
