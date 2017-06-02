@@ -139,8 +139,7 @@ options = parse_command_line
 snmp_options = options[:snmp][:common].clone
 snmp_options.merge!(options[:snmp][snmp_options[:version]])
 
-fetcher = SNMPTableViewer::Fetcher.new(snmp_options)
-data = fetcher.fetch(options[:base_oid])
+data = SNMPTableViewer::Fetcher.fetch(base_oid: options[:base_oid], **snmp_options)
 
 converter = options[:converter]
 data = converter.convert(data) unless converter.nil?

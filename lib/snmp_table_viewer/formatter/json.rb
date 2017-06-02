@@ -1,7 +1,10 @@
 module SNMPTableViewer
 
+  # Formatting class for JSON output
   class Formatter::JSON < Formatter
-    def output(**options)
+    # Output the data. If no headings are provided you'll get an Array or Arrays. If headings are provided you'll get an Array of Hashes.
+    # @return [String] the JSON data
+    def output()
       data = @data
       if @headings.size > 0
         # Convert inner arrays to hashes
