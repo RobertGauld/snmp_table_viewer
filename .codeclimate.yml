@@ -5,3 +5,7 @@ engines:
       languages:
         ruby:
           mass_threshold: 20
+  fixme:
+    enabled: true
+  rubocop:
+    enabled:true
