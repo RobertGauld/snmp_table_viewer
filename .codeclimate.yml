@@ -9,3 +9,13 @@ engines:
     enabled: true
   rubocop:
     enabled: true
+ratings:
+  paths:
+    - app/**/*
+    - lib/**/*
+exclude_paths: # customize
+- .bundle/
+- doc/
+- spec/
+- tmp/
+
