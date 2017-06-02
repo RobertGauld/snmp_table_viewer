@@ -14,7 +14,7 @@ describe SNMPTableViewer::Fetcher do
     expect(NETSNMP::Client).to receive(:new).with(snmp_options).once do |&block|
       block.call(manager)
     end # expect block
-    expect(described_class.fetch(base_oid: '1.2.3.4.5', **snmp_options)).to eq [
+    expect(described_class.from_snmp(base_oid: '1.2.3.4.5', **snmp_options)).to eq [
       [1, 'a', 'A'],
       [2, 'b', 'B']
     ]
