@@ -1,0 +1,62 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require_relative File.join('..', 'lib', 'snmp_table_viewer')
+
+def parse_command_line
+  options = {
+    SNMPTableViewer::Formatter::Table => {
+      transpose: false,
+    },
+    headings:  [],
+    formatter: SNMPTableViewer::Formatter::Table,
+  }
+
+  parser = OptionParser.new do |opts|
+    opts.banner = "Usage: table-from-stdin [options]"
+
+    opts.on('-h', '--help', '-?', 'Prints this help.') do
+      puts opts
+      exit
+    end
+
+    opts.on('--headings HEADINGS', Array, 'Headings to use in the table (e.g. "A, Bc, D").') do |v|
+      options[:headings] += v.map(&:strip)
+    end
+
+    opts.on('--headings-for TYPE', String, "Use headings for this table type (#{SNMPTableViewer::HEADINGS_FOR.keys.join('|')}).") do |v|
+      options[:headings] += SNMPTableViewer::HEADINGS_FOR[v] || []
+    end
+
+    opts.on('--format FORMAT', String, "How to format the output (#{SNMPTableViewer::FORMATTERS.keys.join('|')}) (default table).") do |v|
+      options[:formatter] = SNMPTableViewer::FORMATTERS[v.downcase]
+    end
+
+    opts.on('--converter CONVERTER', String, "A converter to run on the data before formatting (#{SNMPTableViewer::CONVERTERS.keys.join('|')}).") do |v|
+      options[:converter] = SNMPTableViewer::CONVERTERS[v.downcase]
+    end
+
+
+    opts.separator "\nTable formatter options:"
+    opts.on('--[no-]transpose-table', 'Transpose the output table (swap rows and columns).') do |v|
+      options[SNMPTableViewer::Formatter::Table][:transpose] = v
+    end
+
+  end # create parser
+  
+  parser.parse!(ARGV)
+  options
+end
+
+
+options = parse_command_line
+data = STDIN.readlines.map(&:strip)
+data = SNMPTableViewer::Fetcher.from_array(data)
+
+converter = options[:converter]
+data = converter.convert(data) unless converter.nil?
+
+formatter = options[:formatter]
+formatter_options = options[formatter] || {}
+formatter = formatter.new(data: data, headings: options[:headings])
+puts formatter.output(**formatter_options)

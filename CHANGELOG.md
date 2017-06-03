@@ -1,6 +1,7 @@
 ## Version 0.0.5
 
-  * 
+  * Rename snmp-table-viewer script to table-from-snmp
+  * Add script table-from-stdin
 
 ## Version 0.0.4
 
