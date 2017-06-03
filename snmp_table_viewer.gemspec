@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 require File.join(File.dirname(__FILE__), 'version')
 
 Gem::Specification.new do |s|
-  s.name        = "snmp-table-viewer"
+  s.name        = "snmp_table_viewer"
   s.license     = 'BSD 3 clause'
   s.version     = SNMPTableViewer::VERSION
   s.authors     = ['Robert Gauld']
