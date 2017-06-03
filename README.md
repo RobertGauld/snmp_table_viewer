@@ -40,10 +40,11 @@ gem 'snmp_table_viewer', '~> 0.0'
 ```
 
 
-## Executable
+## Executables
 
+### Create table from doing an SNMP walk
 ```
-Usage: snmp-table-viewer [options]
+Usage: table-from-snmp [options]
     -h, -?, --help                   Prints this help.
         --headings HEADINGS          Headings to use in the table (e.g. "A, Bc, D").
         --headings-for TYPE          Use headings for this table type (ifTable).
@@ -75,6 +76,19 @@ SNMP version 3 options:
 Table formatter options:
         --[no-]transpose-table       Transpose the output table (swap rows and columns).
 ```
+### Create table from piped in data
+```
+Usage: table-from-stdin [options]
+    -h, -?, --help                   Prints this help.
+        --headings HEADINGS          Headings to use in the table (e.g. "A, Bc, D").
+        --headings-for TYPE          Use headings for this table type (ifTable).
+        --format FORMAT              How to format the output (table|csv|json|raw) (default table).
+        --converter CONVERTER        A converter to run on the data before formatting (iftable).
+
+Table formatter options:
+        --[no-]transpose-table       Transpose the output table (swap rows and columns).
+```
+
 
 ## Documentation & Versioning
 

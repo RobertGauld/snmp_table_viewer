@@ -1,21 +1,22 @@
 # -*- encoding: utf-8 -*-
-$:.push File.expand_path("../lib", __FILE__)
+$:.push File.expand_path(File.join('..', 'lib'), __FILE__)
 require File.join(File.dirname(__FILE__), 'version')
 
 Gem::Specification.new do |s|
-  s.name        = "snmp_table_viewer"
+  s.name        = 'snmp_table_viewer'
   s.license     = 'BSD 3 clause'
   s.version     = SNMPTableViewer::VERSION
   s.authors     = ['Robert Gauld']
   s.email       = ['robert@robertgauld.co.uk']
-  s.homepage    = 'https://github.com/robertgauld/snmp-table-viewer'
+  s.homepage    = 'https://github.com/robertgauld/snmp_table_viewer'
   s.summary     = %q{Easily view SNMP tables.}
   s.description = %q{Easily view SNMP tables in a variety of different formats including as a table in the terminal, json or csv.}
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
-  s.require_paths = ["lib"]
+  s.require_paths = ['lib']
+  s.bindir        = 'bin'
 
   s.add_runtime_dependency 'netsnmp', '~> 0.1.3'
   s.add_runtime_dependency 'terminal-table', '~> 1.8.0'

@@ -29,25 +29,10 @@ def parse_command_line
     headings:  [],
     formatter: SNMPTableViewer::Formatter::Table,
   }
-  headings_for = {
-      'ifTable' => ['Index', 'Descr', 'Type', 'Mtu', 'Speed', 'PhysAddress', 'AdminStatus', 'OperStatus', 'LastChange', 'InOctets', 'InUcastPkts', 'InNUcastkts', 'InDiscards', 'InErrors', 'InUnknownPrortos', 'OutOctets', 'OutUcastPkts', 'OutNUcastPkts', 'OutDiscards', 'OutErrors', 'OutQLen', 'Specific'],
-  }
-  formatters = {
-      'table' => SNMPTableViewer::Formatter::Table,
-      'csv' =>   SNMPTableViewer::Formatter::CSV,
-      'json' =>  SNMPTableViewer::Formatter::JSON,
-      'raw' =>   SNMPTableViewer::Formatter::Raw,
-  }
-  converters = {
-    'iftable' => SNMPTableViewer::Converter::IfTable,
-  }
-  base_oids = {
-    'iftable' => '1.3.6.1.2.1.2.2',
-  }
   snmp_version = 'v3'
 
   parser = OptionParser.new do |opts|
-    opts.banner = "Usage: snmp-table-viewer [options]"
+    opts.banner = "Usage: table-from-snmp [options]"
 
     opts.on('-h', '--help', '-?', 'Prints this help.') do
       puts opts
@@ -58,16 +43,16 @@ def parse_command_line
       options[:headings] += v.map(&:strip)
     end
 
-    opts.on('--headings-for TYPE', String, "Use headings for this table type (#{headings_for.keys.join('|')}).") do |v|
-      options[:headings] += headings_for[v] || []
+    opts.on('--headings-for TYPE', String, "Use headings for this table type (#{SNMPTableViewer::HEADINGS_FOR.keys.join('|')}).") do |v|
+      options[:headings] += SNMPTableViewer::HEADINGS_FOR[v] || []
     end
 
-    opts.on('--format FORMAT', String, "How to format the output (#{formatters.keys.join('|')}) (default table).") do |v|
-      options[:formatter] = formatters[v.downcase]
+    opts.on('--format FORMAT', String, "How to format the output (#{SNMPTableViewer::FORMATTERS.keys.join('|')}) (default table).") do |v|
+      options[:formatter] = SNMPTableViewer::FORMATTERS[v.downcase]
     end
 
-    opts.on('--converter CONVERTER', String, "A converter to run on the data before formatting (#{converters.keys.join('|')}).") do |v|
-      options[:converter] = converters[v.downcase]
+    opts.on('--converter CONVERTER', String, "A converter to run on the data before formatting (#{SNMPTableViewer::CONVERTERS.keys.join('|')}).") do |v|
+      options[:converter] = SNMPTableViewer::CONVERTERS[v.downcase]
     end
 
 
@@ -87,7 +72,7 @@ def parse_command_line
     end
 
     opts.on('--base-oid OID', 'The oid at the start of the table. Can by dotted numbers or ifTable') do |v|
-      options[:base_oid] = base_oids[v.downcase] || v
+      options[:base_oid] = SNMPTableViewer::BASE_OIDS[v.downcase] || v
     end
 
 
@@ -139,7 +124,7 @@ options = parse_command_line
 snmp_options = options[:snmp][:common].clone
 snmp_options.merge!(options[:snmp][snmp_options[:version]])
 
-data = SNMPTableViewer::Fetcher.fetch(base_oid: options[:base_oid], **snmp_options)
+data = SNMPTableViewer::Fetcher.from_snmp(base_oid: options[:base_oid], **snmp_options)
 
 converter = options[:converter]
 data = converter.convert(data) unless converter.nil?
