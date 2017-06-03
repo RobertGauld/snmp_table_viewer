@@ -1,3 +1,7 @@
+## Version 0.0.6
+
+  * 
+
 ## Version 0.0.5
 
   * Rename snmp-table-viewer script to table-from-snmp
