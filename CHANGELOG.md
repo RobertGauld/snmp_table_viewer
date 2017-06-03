@@ -1,6 +1,6 @@
 ## Version 0.0.4
 
-  * 
+  * Rename gem to snmp_table_viewer
 
 ## Version 0.0.3
 

@@ -1,15 +1,15 @@
-[![Gem Version](https://badge.fury.io/rb/snmp-table-viewer.svg)](http://badge.fury.io/rb/snmp-table-viewer)
-[![Dependency Status](https://gemnasium.com/robertgauld/snmp-table-viewer.png)](https://gemnasium.com/robertgauld/snmp-table-viewer)
+[![Gem Version](https://badge.fury.io/rb/snmp_table_viewer.svg)](http://badge.fury.io/rb/snmp_table_viewer)
+[![Dependency Status](https://gemnasium.com/robertgauld/snmp_table_viewer.png)](https://gemnasium.com/robertgauld/snmp_table_viewer)
 
 Master branch:
-[![Build Status](https://secure.travis-ci.org/robertgauld/snmp-table-viewer.png?branch=master)](http://travis-ci.org/robertgauld/snmp-table-viewer)
-[![Coveralls Status](https://coveralls.io/repos/robertgauld/snmp-table-viewer/badge.svg?branch=master)](https://coveralls.io/r/robertgauld/snmp-table-viewer)
-[![Code Climate](https://codeclimate.com/github/robertgauld/snmp-table-viewer.png?branch=master)](https://codeclimate.com/github/robertgauld/snmp-table-viewer)
+[![Build Status](https://secure.travis-ci.org/robertgauld/snmp_table_viewer.png?branch=master)](http://travis-ci.org/robertgauld/snmp_table_viewer)
+[![Coveralls Status](https://coveralls.io/repos/robertgauld/snmp_table_viewer/badge.svg?branch=master)](https://coveralls.io/r/robertgauld/snmp_table_viewer)
+[![Code Climate](https://codeclimate.com/github/robertgauld/snmp_table_viewer.png?branch=master)](https://codeclimate.com/github/robertgauld/snmp_table_viewer)
 
 Staging branch:
-[![Build Status](https://secure.travis-ci.org/robertgauld/snmp-table-viewer.png?branch=staging)](http://travis-ci.org/robertgauld/snmp-table-viewer)
-[![Coveralls Status](https://coveralls.io/repos/robertgauld/snmp-table-viewer/badge.svg?branch=master)](https://coveralls.io/r/robertgauld/snmp-table-viewer)
-[![Code Climate](https://codeclimate.com/github/robertgauld/snmp-table-viewer.png?branch=staging)](https://codeclimate.com/github/robertgauld/snmp-table-viewer)
+[![Build Status](https://secure.travis-ci.org/robertgauld/snmp_table_viewer.png?branch=staging)](http://travis-ci.org/robertgauld/snmp_table_viewer)
+[![Coveralls Status](https://coveralls.io/repos/robertgauld/snmp_table_viewer/badge.svg?branch=master)](https://coveralls.io/r/robertgauld/snmp_table_viewer)
+[![Code Climate](https://codeclimate.com/github/robertgauld/snmp_table_viewer.png?branch=staging)](https://codeclimate.com/github/robertgauld/snmp_table_viewer)
 
 
 ## Build State
@@ -36,7 +36,7 @@ Easily view SNMP tables. The data in the table can be easily converted and forma
 Add to your Gemfile and run the `bundle` command to install it.
 
 ```ruby
-gem 'snmp-view-table', '~> 0.0'
+gem 'snmp_table_viewer', '~> 0.0'
 ```
 
 
@@ -78,6 +78,6 @@ Table formatter options:
 
 ## Documentation & Versioning
 
-Documentation can be found on [rubydoc.info](http://rubydoc.info/github/robertgauld/snmp-table-viewer/master/frames)
+Documentation can be found on [rubydoc.info](http://rubydoc.info/github/robertgauld/snmp_table_viewer/master/frames)
 
 We follow the [Semantic Versioning](http://semver.org/) concept,
