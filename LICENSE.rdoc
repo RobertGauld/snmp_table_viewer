@@ -12,7 +12,6 @@ then Robert Gauld shall have the right to re-license their commits on their beha
 For the purposes of this project the community will be taken to include:
 
 - GitHub (make sure you can be contacted through the user name making the commit)
-- The Online Scout Manager forum
 
 
 ===BSD License
