@@ -33,7 +33,7 @@ describe SNMPTableViewer::Formatter::Table do
       ].join("\n")
     end
 
-    describe 'Transposes output' do
+    context 'Transposes output' do
 
       it 'With headings' do
         headings = ['heading1', 'heading2', 'heading3']
@@ -66,7 +66,7 @@ describe SNMPTableViewer::Formatter::Table do
         ].join("\n")
       end
 
-    end # describe transposes output
+    end # context transposes output
 
   end # describe #output
 
