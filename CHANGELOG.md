@@ -1,6 +1,6 @@
 ## Version 0.0.7
 
-  * 
+  * Add rubies 2.3.2 and 2.3.3 to travis config
 
 ## Version 0.0.5
 
